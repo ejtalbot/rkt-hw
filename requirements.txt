@@ -1,0 +1,5 @@
+connexion[swagger-ui]
+Flask
+pandas
+pytest
+scikit-learn==0.21.3

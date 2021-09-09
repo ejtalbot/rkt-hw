@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  description: Swagger file for route mapping
+  version: "1.0.0"
+  title: Rocket Travel Homework
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+paths:
+  /predict:
+    post:
+      operationId: routes.health_inspection.create_prediction
+      tags:
+        - Predict
+      summary: Predict health inspection grade
+      description: Processes restaurant metadata to make a prediction if NYC restaurant will receive an A grade
+      parameters:
+        - name: restaurants
+          in: body
+          description: Inputs of metadata to the health inspection model
+          required: True
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                borough:
+                  type: string
+                  enum: [Manhattan, Brooklyn, Queens, Bronx, Staten Island]
+                  description: Name of borough
+                tstamp:
+                  type: string
+                  format: date
+                  description: Date of inspection
+                cuisine:
+                  type: string
+                  description: Type of cuisine
+
+      responses:
+        204:
+          description: Health inspection model output
+          schema:
+            properties:
+              restaurant:
+                type: string
+                description: Id of the restaurant
+              prediction_value:
+                type: string
+                description: Predicted probability of 1
